@@ -56,8 +56,6 @@ function createContent(data) {
 }
 
 //상품 상세 tab
-const detail_tab_menus = "";
-const detail_tab_contents = "";
 
 function createRecommendLists(all, category, id) {
   const recommendList = all.filter(p => p.category === category && p.id !== id).slice(0, 4);
@@ -88,6 +86,27 @@ function createRecommendLists(all, category, id) {
 }
 
 fetchProduct();
+
+const tabs = document.querySelectorAll(".detail-tabs a");
+const tabContents = document.querySelectorAll(".detail-content");
+
+tabs.forEach(tab => {
+  tab.addEventListener("click", e => {
+    e.preventDefault();
+
+    const targetId = tab.getAttribute("href");
+
+    // active 제거
+    tabs.forEach(t => t.classList.remove("active"));
+    tabContents.forEach(content => {
+      content.classList.remove("active");
+    });
+
+    // active 추가
+    tab.classList.add("active");
+    document.querySelector(targetId).classList.add("active");
+  });
+});
 
 //상품 수량 변경하기
 const quantity_control = document.querySelector(".quantity-control");
